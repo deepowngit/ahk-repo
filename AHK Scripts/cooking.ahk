@@ -1,5 +1,5 @@
 ﻿Colors := {Lobster: "0x0F2F63", Shark:"0x7E7F8A", Karambwan:"0x355D45", DarkCrabs:"0x25382B", Monkfish:"0x7578AC", SeaTurtle:"0x205F6D"}
-
+;hosidius kitchen btw
 Menu, Tray, NoMainWindow
 Menu, Tray, NoIcon 
 Gui, Add, Text, Center, Which meat do you want to cook?
