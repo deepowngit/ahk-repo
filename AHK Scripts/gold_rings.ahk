@@ -2,10 +2,6 @@
 FileContent := RunWaitOne("ipconfig /all")
 If InStr(FileContent, "30-85-A9-93-C3-88")
 {
-TrayTip, Spirit, Injection into system sucessful`nStatus: Undetected., 5
-Menu, Tray, Tip, Spirit Cannonball Script
-Menu, Tray, NoMainWindow
-Menu, Tray, NoIcon 
 numpad1::
 Loop
 {
