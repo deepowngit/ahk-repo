@@ -5,3 +5,5 @@ ou can just replace it with your own physical address found in command promopt t
 
 please keep in mind most these scripts are old and could get you banned if you don't do some changes to them.
 I suggest you just use these scripts to learn the basics.
+
+also I added randombezier.ahk in there incase you need it and don't know where to find it
