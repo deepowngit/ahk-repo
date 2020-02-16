@@ -2,7 +2,7 @@
 #Persistent
 ; USER NOTE MUST HAVE 2 ORES READY BEFORE STARTING SCRIPT
 ;            IRON ORES IS 0x182242 / 0x16213E
-; https://gyazo.com/2798c6d719ec50b384ba1bcf697fef77
+; suppsed to be use at al-kharid mine where the 3 iron spot is, THE COORDS ARE PROBABLY WRONG AND NEED TO BE RE-ADJUSTED
 ;            COPPER ORES IS 0x27466C
 Numpad1 up::
 ; Left ALK
