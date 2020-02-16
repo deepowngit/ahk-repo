@@ -29,6 +29,7 @@
 ;========================================================================
 
 RandomBezier( X0, Y0, Xf, Yf, O="" ) {
+    global
     Time := RegExMatch(O,"i)T(\d+)",M)&&(M1>0)? M1: 200
     RO := InStr(O,"RO",0) , RD := InStr(O,"RD",0)
     N:=!RegExMatch(O,"i)P(\d+)(-(\d+))?",M)||(M1<2)? 2: (M1>19)? 19: M1
