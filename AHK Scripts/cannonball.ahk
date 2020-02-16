@@ -1,10 +1,9 @@
 ﻿FileContent := RunWaitOne("ipconfig /all")
 If InStr(FileContent, "00-D8-61-72-2F-60")
 {
-TrayTip, Spirit, Injection into system sucessful`nStatus: Undetected., 5
-Menu, Tray, Tip, Spirit Cannonball Script
-Menu, Tray, NoMainWindow
-Menu, Tray, NoIcon 
+;
+;                   ---- EDGEVILLE FURNACE ----
+;
 numpad1::
 SetTimer, ForceExitApp, 20700000 ; 5 hours 45 mins
 Loop
