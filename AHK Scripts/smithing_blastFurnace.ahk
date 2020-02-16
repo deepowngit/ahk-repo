@@ -1,6 +1,7 @@
 ﻿#SingleInstance Force
 
 /*
+SCRIPT WRITTEN BY Rehz#9094
 equip goldsmith gauntlets
 ice gloves in 1st backpack slot
 gold ore in 1st bank slot
