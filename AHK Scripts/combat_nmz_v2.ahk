@@ -1,5 +1,6 @@
 ﻿#SingleInstance Force
-
+ 
+; SCRIPT WRITTEN BY Rehz#9094
 ; tag overloads green 00FF00
 ; tag absorbs purple
 ; tag overloads green
