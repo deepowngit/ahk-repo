@@ -6,7 +6,7 @@ RandomBezier( MouseX, MouseY, movex, movey, "T"speed "P2-5")
 */
 
 /*
-INSTRUCTIONS
+INSTRUCTIONS         SCRIPT WRITTEN BY Rehz#9094
 ---------------------------------------------------
 mark duel ring purple
 mark binding neck green
