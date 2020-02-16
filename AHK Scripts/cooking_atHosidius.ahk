@@ -1,5 +1,6 @@
 ﻿#SingleInstance Force
 /*
+SCRIPT WRITTEN BY Rehz#9094
 start in front of western clay oven in hosidius kitchen
 mark bank chest and western clay oven in hosidius kitchen
 raw sharks in first bank slot
