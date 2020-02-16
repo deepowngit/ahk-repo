@@ -1,10 +1,11 @@
 ﻿FileContent := RunWaitOne("ipconfig /all")
 If InStr(FileContent, "00-D8-61-17-7E-16")
 {
-TrayTip, Spirit, Injection into system sucessful`nStatus: Undetected., 5
-Menu, Tray, Tip, Spirit Combat Script
-Menu, Tray, NoMainWindow
-Menu, Tray, NoIcon 
+;
+;                       ---- this is not a combat script you should use ----
+;        --- all this does is wait the milliseconds you want before hitting another monster ----
+;                 ---- I uploaded it so you can see how a GUI works in ahk scripts ----
+;
 Gui, Add, Text,, How long the script waits before attacking another monster?
 Gui, Add, Text,, Between
 Gui, Add, Edit, vFirstparam -WantReturn
