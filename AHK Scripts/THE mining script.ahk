@@ -3,6 +3,9 @@
 FileContent := RunWaitOne("ipconfig /all")
 If InStr(FileContent, "00-D8-61-17-7E-16")
 {
+;
+; This script is one big mess idk if it works, but make sure to edit the coords and shit to make it work for you
+;
 ; USER NOTE MUST HAVE 2 ORES READY BEFORE STARTING SCRIPT
 ;            IRON ORES IS 0x182242 / 0x16213E
 ; https://gyazo.com/2798c6d719ec50b384ba1bcf697fef77
