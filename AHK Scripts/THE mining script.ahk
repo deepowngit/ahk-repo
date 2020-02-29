@@ -1,29 +1,35 @@
-﻿#SingleInstance Force
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+; #Warn  ; Enable warnings to assist with detecting common errors.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#SingleInstance Force
 #Persistent
-FileContent := RunWaitOne("ipconfig /all")
-If InStr(FileContent, "00-D8-61-17-7E-16")
-{
 ;
-; This script is one big mess idk if it works, but make sure to edit the coords and shit to make it work for you
+; 
+;            
+; Windowed mode, compass north, uparrow all the way up, Zoom setting check screenshot
+;            https://gyazo.com/0d40a0eb199faddd5cf15ce8c6844de4
+; This script is only 2 rocks but you can read it and follow for a third rock, to edit coords just Ctrl+F: ";;"
+; The 2 ores must be ready when you start the script or it might break
+;              ((The dropping of ores might not work, just replace with your own inventory dropping script))
+;                      NUMPAD1: START ||   NUMPAD0:: STOP
 ;
-; USER NOTE MUST HAVE 2 ORES READY BEFORE STARTING SCRIPT
-;            IRON ORES IS 0x182242 / 0x16213E
-; https://gyazo.com/2798c6d719ec50b384ba1bcf697fef77
-;            COPPER ORES IS 0x27466C
+;                   [[Please use as information because this is an easy ban, the mousemove is really bad in this script...]]
+;
+;
+;
+;
 Numpad1 up::
-
 FirstRock:
-PixelSearch, x, y, 141, 201, 210, 250, 0x16213E, 1, Fast
+PixelSearch, x, y, 258, 206, 266, 214, 0x223F62, 1, Fast ;;First rock coords
 if ErrorLevel
 {
-	Random, gotor, 150, 600
+	Random, gotor, 150, 300
 	Sleep %gotor%
-	PixelSearch, x, y, 694, 459, 720, 481, 0xFF00FF, 1, Fast
+	PixelSearch, x, y, 689, 455, 729, 484, 0x00FF00, 1, Fast ;;Last item inventory coords
                 if ErrorLevel
 	                    {
-							Random, beforelevelup, 605, 630
-							Sleep %beforelevelup%
-							PixelSearch, x, y, 119, 401, 465, 423, 0x800000, 1, Fast
+							PixelSearch, x, y, 9, 1243, 513, 1352, 0x800000, 1, Fast ;;Levelup message coords
 								if ErrorLevel
 								{
 									Goto, SecondRock
@@ -31,6 +37,7 @@ if ErrorLevel
 								}
 								else
 								{
+									;;This script to bypass the levelup message is really old, sorry!
 									Random, wtf, 60, 110
 									Sleep, %wtf%
 									Random, levelup, 600, 800
@@ -52,8 +59,8 @@ if ErrorLevel
 }
 else
 {
-	Random, xore1, 141, 210
-	Random, yore1, 201, 250
+	Random, xore1, 258, 266 ;;First rock x-coords
+	Random, yore1, 206, 214 ;;First rock y-coords
 	Random, speed, 2, 4
 	MouseMove %xore1%, %yore1%, %speed%
 	Random, beforeclick, 30, 300
@@ -69,12 +76,12 @@ else
 return
 
 MakeSureIsDone:
-PixelSearch, x, y, 141, 201, 210, 250, 0x16213E, 1, Fast
+PixelSearch, x, y, 258, 206, 266, 214, 0x223F62, 1, Fast ;;First rock coords
 if ErrorLevel
 {
 	Random gobackfirst1, 150, 300
 	Sleep %gobackfirst1%
-	PixelSearch, x, y, 690, 455, 725, 488, 0xFF00FF, 1, Fast
+	PixelSearch, x, y, 689, 455, 729, 484, 0x00FF00, 1, Fast ;;Last item inventory coords
                 if ErrorLevel
 	                    {
 	                        Goto, SecondRock
@@ -90,29 +97,44 @@ Loop
 {
 	Random waitalil, 150, 300
 	Sleep %waitalil%
-	Goto, MakeSureIsDone
+		PixelSearch, x, y, 9, 1243, 513, 1352, 0x800000, 1, Fast ;;Levelup message coords
+		if ErrorLevel
+			{
+			 	Goto, MakeSureIsDone
+				return
+			}
+		else
+			{
+			;;This code needs some re-work lol, but it works I guess
+				Random, wtf, 60, 110
+				Sleep, %wtf%
+				Send {Space}
+				Random, levelup, 600, 800
+				Sleep %levelup%
+				Send {Space}
+				Random, levelup, 600, 800
+				Sleep %levelup%
+				Send {Space}
+				Random, small, 150, 300
+				Sleep %small%
+				Goto, SecondRock
+				return
+			}
 }
-	Click, down
-	Random, clicki, 35, 150
-	Click, up
-	Random, rand, 150, 330
-	Sleep %rand%
-	Goto, MakeSureIsDone
 }
 return
 
+
 SecondRock:
-PixelSearch, x, y, 235, 98, 308, 162, 0x16213E, 0, Fast
+PixelSearch, x, y, 242, 196, 251, 206, 0x2B4E78, 2, Fast ;;Second Rock Coords
 if ErrorLevel
 {
-	Random, gotor, 150, 600
+	Random, gotor, 150, 300
 	Sleep %gotor%
-	PixelSearch, x, y, 690, 455, 725, 488, 0xFF00FF, 1, Fast
+	PixelSearch, x, y, 689, 455, 729, 484, 0x00FF00, 1, Fast ;;Last item inventory coords
                 if ErrorLevel
 	                    {
-							Random, beforelevelup, 605, 630
-							Sleep %beforelevelup%
-							PixelSearch, x, y, 119, 401, 465, 423, 0x800000, 1, Fast
+							PixelSearch, x, y, 9, 1243, 513, 1352, 0x800000, 1, Fast ;;Levelup message coords
 								if ErrorLevel
 								{
 									Goto, FirstRock
@@ -120,6 +142,7 @@ if ErrorLevel
 								}
 								else
 								{
+									;;Messy level-up code
 									Random, wtf, 60, 110
 									Sleep, %wtf%
 									Send {Space}
@@ -142,8 +165,8 @@ if ErrorLevel
 }
 else
 {
-	Random, xore2, 235, 308
-	Random, yore2, 98, 162
+	Random, xore2, 242, 251
+	Random, yore2, 196, 206
 	Random, speed, 2, 5
 	MouseMove %xore2%, %yore2%, %speed%
 	Random, beforeclick, 30, 300
@@ -158,13 +181,14 @@ else
 }
 return
 
+
 MakeSureIsDone2:
-PixelSearch, x, y, 235, 98, 308, 162, 0x16213E, 0, Fast
+PixelSearch, x, y, 242, 196, 251, 206, 0x2B4E78, 2, Fast ;;Second Rock Coords
 if ErrorLevel
 {
 	Random gobackfirst, 150, 300
 	Sleep %gobackfirst%
-	PixelSearch, x, y, 690, 455, 725, 488, 0xFF00FF, 1, Fast
+	PixelSearch, x, y, 689, 455, 729, 484, 0x00FF00, 1, Fast ;;Last item inventory coords
                 if ErrorLevel
 	                    {
 	                        Goto, FirstRock
@@ -176,11 +200,33 @@ if ErrorLevel
 }
 else
 {
-Loop, 30
+Loop
 {
 	Random waitalil, 150, 300
 	Sleep %waitalil%
-	Goto, MakeSureIsDone2
+		PixelSearch, x, y, 9, 1243, 513, 1352, 0x800000, 1, Fast ;;Levelup message coords
+		if ErrorLevel
+			{
+			 	Goto, MakeSureIsDone2
+				return
+			}
+		else
+			{
+				;; Shitty levelup message bypass script
+				Random, wtf, 60, 110
+				Sleep, %wtf%
+				Send {Space}
+				Random, levelup, 600, 800
+				Sleep %levelup%
+				Send {Space}
+				Random, levelup, 600, 800
+				Sleep %levelup%
+				Send {Space}
+				Random, small, 150, 300
+				Sleep %small%
+				Goto, SecondRock
+				return
+			}
 }
 	Click, down
 	Random, clicki, 35, 150
@@ -191,316 +237,35 @@ Loop, 30
 }
 return
 
-DropOres:
-Send {Shift down}
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-;Random, speed, 2, 4
-;Random, xslot1, 570, 595
-;Random, yslot1, 245, 263
-;MouseMove, %xslot1%, %yslot1%, %speed%
-;Click, down
-;	Random, clicki, 35, 150
-;	Sleep %clicki%
-;Click, up
-;													Random, sleepie, 50, 151
-;													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot2, 612, 630
-Random, yslot2, 245, 263
-MouseMove, %xslot2%, %yslot2%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot3, 570, 595
-Random, yslot3, 280, 300
-MouseMove, %xslot3%, %yslot3%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot4, 612, 630
-Random, yslot4, 280, 300
-MouseMove, %xslot4%, %yslot4%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot5, 570, 595
-Random, yslot5, 315, 338
-MouseMove, %xslot5%, %yslot5%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot6, 612, 630
-Random, yslot6, 315, 338
-MouseMove, %xslot6%, %yslot6%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot7, 570, 595
-Random, yslot7, 351, 375
-MouseMove, %xslot7%, %yslot7%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot8, 612, 630
-Random, yslot8, 351, 375
-MouseMove, %xslot8%, %yslot8%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot9, 570, 595
-Random, yslot9, 387, 410
-MouseMove, %xslot9%, %yslot9%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot10, 612, 630
-Random, yslot10, 387, 410
-MouseMove, %xslot10%, %yslot10%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot11, 570, 595
-Random, yslot11, 424, 444
-MouseMove, %xslot11%, %yslot11%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot12, 612, 630
-Random, yslot12, 424, 444
-MouseMove, %xslot12%, %yslot12%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot13, 570, 595
-Random, yslot13, 459, 481
-MouseMove, %xslot13%, %yslot13%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot14, 612, 630
-Random, yslot14, 459, 481
-MouseMove, %xslot14%, %yslot14%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot15, 654, 675
-Random, yslot15, 245, 263
-MouseMove, %xslot15%, %yslot15%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot16, 694, 720
-Random, yslot16, 245, 263
-MouseMove, %xslot16%, %yslot16%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot17, 654, 675
-Random, yslot17, 280, 300
-MouseMove, %xslot17%, %yslot17%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot18, 694, 720
-Random, yslot18, 280, 300
-MouseMove, %xslot18%, %yslot18%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot19, 654, 675
-Random, yslot19, 315, 338
-MouseMove, %xslot19%, %yslot19%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot20, 694, 720
-Random, yslot20, 315, 338
-MouseMove, %xslot20%, %yslot20%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot21, 654, 675
-Random, yslot21, 351, 375
-MouseMove, %xslot21%, %yslot21%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot22, 694, 720
-Random, yslot22, 351, 375
-MouseMove, %xslot22%, %yslot22%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot23, 654, 675
-Random, yslot23, 387, 410
-MouseMove, %xslot23%, %yslot23%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot24, 694, 720
-Random, yslot24, 387, 410
-MouseMove, %xslot24%, %yslot24%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot25, 654, 675
-Random, yslot25, 424, 444
-MouseMove, %xslot25%, %yslot25%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot26, 694, 720
-Random, yslot26, 424, 444
-MouseMove, %xslot26%, %yslot26%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot27, 654, 675
-Random, yslot27, 459, 481
-MouseMove, %xslot27%, %yslot27%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Random, speed, 2, 4
-Random, xslot28, 694, 720
-Random, yslot28, 459, 481
-MouseMove, %xslot28%, %yslot28%, %speed%
-Click, down
-	Random, clicki, 35, 150
-	Sleep %clicki%
-Click, up
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Send {Shift up}
-													Random, sleepie, 50, 151
-													Sleep, %sleepie%
-Goto, FirstRock
-return
 
-Numpad9::
-MouseGetPos, MouseX, MouseY
-PixelGetColor, color, %MouseX%, %MouseY%
-MsgBox The color at the current cursor position is %color%.
+DropOres:
+Msgbox, DropOres ;;remove this thing, was just trying for testing
+Send {Shift down}
+MouseGetPos, Opx,Opy
+    Loop 50 {
+PixelSearch, PX, PY, 0, 0, A_ScreenWidth, A_ScreenWidth, 0xBDF569, 0,Fast RGB
+If (ErrorLevel != 0) {
+    	;MsgBox, Script Broke Unkown Reasons
+        Send {Shift up}
+        MouseMove Opx,Opy
+
+        return
+}
+Random Offset_x, 1, 5
+Random Offset_y, 1, 5
+;;Random sleep_1 , 100,155
+Random waiter, 120, 140
+
+    Sleep waiter
+	MouseClick, left ,PX + Offset_x,PY + Offset_y, 1, 4
+    Sleep waiter
+
+
+}   
+Send {Shift up}
+MouseMove Opx,Opy
+Goto, FirstRock
 return
 
 Numpad0::
 ExitApp
-}
-else
-{
-    MsgBox, 0, Spirit, This computer is not authorized.
-    ExitApp
-}
-
-RunWaitOne(command) {
-    ; WshShell object: http://msdn.microsoft.com/en-us/library/aew9yb99
-    shell := ComObjCreate("WScript.Shell")
-    ; Execute a single command via cmd.exe
-    exec := shell.Exec(ComSpec " /C " command)
-    ; Read and return the command's output
-    return exec.StdOut.ReadAll()
-}
