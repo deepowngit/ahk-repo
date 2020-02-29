@@ -1,3 +1,5 @@
+; Script is for alot of magic xp
+; You basically high-alch and camelot tp over and over until you stop it
 RandomBezier( X0, Y0, Xf, Yf, O="" ) {
     Time := RegExMatch(O,"i)T(\d+)",M)&&(M1>0)? M1: 200
     RO := InStr(O,"RO",0) , RD := InStr(O,"RD",0)
